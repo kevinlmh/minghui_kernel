@@ -1,10 +1,16 @@
+CC=i686-elf-gcc
+CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra
+
 all: kernel
 
-kernel: boot.o kernel.o
-	i686-elf-gcc -T linker.ld -o kernel -ffreestanding -O2 -nostdlib boot.o kernel.o -lgcc
+kernel: boot.o kernel.o system.o
+	i686-elf-ld -T linker.ld -o kernel -ffreestanding -O2 -nostdlib boot.o kernel.o -lgcc
 
 kernel.o: kernel.c
-	i686-elf-gcc -c kernel.c -o kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	$(CC) $(CFLAGS) -c kernel.c -o kernel.o
+
+system.o: system.c
+	$(CC) $(CFLAGS) -c system.c -o system.o
 
 boot.o: boot.s
 	i686-elf-as boot.s -o boot.o
