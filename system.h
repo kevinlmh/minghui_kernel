@@ -1,6 +1,8 @@
 #ifndef __SYSTEM_H
 #define __SYSTEM_H
 
+#include <stddef.h>
+
 /* system.c */
 void *memcpy(void *dest, const void *src, size_t count);
 void *memset(void *dest, int8_t val, size_t count);

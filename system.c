@@ -5,13 +5,13 @@
  */
 
 #include <stdint.h>
-#include <system.h>
+#include "system.h"
 
 void *memcpy(void *dest, const void *src, size_t count) {
 	const int8_t *sp = (const int8_t *)src;
 	int8_t *dp = (int8_t *)dest;
 	for (; count != 0; count--) 
-		*dep++ = *sp++;
+		*dp++ = *sp++;
 	return dest;
 }
 
@@ -26,7 +26,7 @@ uint16_t *memsetw(uint16_t *dest, uint16_t val, size_t count) {
 	uint16_t *temp = (uint16_t *)dest;
 	for (; count != 0; count--)
 		*temp++ = val;
-	return dest
+	return dest;
 }
 
 size_t strlen(const int8_t *str) {
