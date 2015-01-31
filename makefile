@@ -4,7 +4,7 @@ CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra
 all: kernel
 
 kernel: boot.o kernel.o system.o
-	i686-elf-ld -T linker.ld -o kernel -ffreestanding -O2 -nostdlib boot.o kernel.o -lgcc
+	$(CC) -T linker.ld -o kernel -ffreestanding -O2 -nostdlib boot.o system.o kernel.o -lgcc
 
 kernel.o: kernel.c
 	$(CC) $(CFLAGS) -c kernel.c -o kernel.o
