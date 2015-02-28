@@ -8,7 +8,7 @@ ODIR=obj		# objects directory
 LIBS=-lgcc		# libraries
 
 # C source files
-CSOURCES=kernel.c system.c
+CSOURCES=kernel.c common.c terminal.c
 # Assembly source files
 SSOURCES=boot.s
 

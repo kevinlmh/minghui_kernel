@@ -5,7 +5,7 @@
  */
 
 #include <stdint.h>
-#include "system.h"
+#include "common.h"
 
 void *memcpy(void *dest, const void *src, size_t count) {
 	const int8_t *sp = (const int8_t *)src;
@@ -36,12 +36,22 @@ size_t strlen(const int8_t *str) {
 	return retval;
 }
 
-uint8_t inportb(uint16_t _port) {
-	uint8_t rv;
-	__asm__ __volatile__ ("inb %1, %0" : "=a" (rv) : "dN" (_port));
-	return rv;
+uint8_t inb(uint16_t _port) {
+	uint8_t ret;
+	__asm__ __volatile__ ("inb %1, %0" : "=a" (ret) : "dN" (_port));
+	return ret;
 }
 
-void outportb (uint16_t _port, uint8_t _data) {
+void outb(uint16_t _port, uint8_t _data) {
 	__asm__ __volatile__ ("outb %1, %0" : : "dN" (_port), "a" (_data));
+}
+
+uint16_t inw(uint16_t _port) {
+	uint16_t ret;
+	__asm__ __volatile__ ("inw %1, %0" : "=a" (ret) : "dN" (_port));
+	return ret;
+}
+
+void outw(uint16_t _port, uint16_t _data) {
+	__asm__ __volatile__ ("outw %1, %0" : : "dN" (_port), "a" (_data));
 }
