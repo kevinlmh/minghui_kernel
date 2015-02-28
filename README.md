@@ -9,3 +9,4 @@ Thanks to the following author and their tutorials:
 Thanks to the following websites:
 * [OSdev](http://wiki.osdev.org)
 * [Bona fide OS Developer](http://www.osdever.net)
+* [POSIX Standard](http://pubs.opengroup.org/onlinepubs/009695399/toc.htm)
