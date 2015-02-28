@@ -27,7 +27,7 @@ static void move_cursor() {
 static void scroll() {
 
    // Get a space character with the default colour attributes.
-   uint8_t attributeByte = (0 /*black*/ << 4) | (15 /*white*/ & 0x0F);
+   uint8_t attributeByte = (COLOR_BLACK << 4) | (COLOR_WHITE & 0x0F);
    uint8_t blank = 0x20 /* space */ | (attributeByte << 8);
 
    // Row 25 is the end, this means we need to scroll up
@@ -52,8 +52,8 @@ static void scroll() {
 // Writes a single character out to the screen.
 void terminal_put(char c) {
    // The background colour is black (0), the foreground is white (15).
-   uint8_t backColour = 0;
-   uint8_t foreColour = 15;
+   uint8_t backColour = COLOR_BLACK;
+   uint8_t foreColour = COLOR_WHITE;
 
    // The attribute byte is made up of two nibbles - the lower being the
    // foreground colour, and the upper the background colour.
@@ -104,7 +104,7 @@ void terminal_put(char c) {
 // Clears the screen, by copying lots of spaces to the framebuffer.
 void terminal_clear() {
    // Make an attribute byte for the default colours
-   uint8_t attributeByte = (0 /*black*/ << 4) | (15 /*white*/ & 0x0F);
+   uint8_t attributeByte = (COLOR_BLACK << 4) | (COLOR_WHITE & 0x0F);
    uint16_t blank = 0x20 /* space */ | (attributeByte << 8);
 
    int i;

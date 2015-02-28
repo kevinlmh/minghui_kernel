@@ -4,6 +4,6 @@
 
 void kernel_main() {
 	terminal_clear();
-	terminal_write("Hello Kernel World!\n");
+	terminal_write("Hello\tKernel\tWorld!\n");
 	while(1);
 }

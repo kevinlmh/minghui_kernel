@@ -19,4 +19,5 @@ Thanks to the following websites:
 ### Extend VGA text display
 * Add rainbow text output
 * Add video buffer and redraw function
+* Add output functions with color parameter
 ### Setup GDT and IDT
