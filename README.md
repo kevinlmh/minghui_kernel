@@ -10,3 +10,13 @@ Thanks to the following websites:
 * [OSdev](http://wiki.osdev.org)
 * [Bona fide OS Developer](http://www.osdever.net)
 * [POSIX Standard](http://pubs.opengroup.org/onlinepubs/009695399/toc.htm)
+
+## Current State
+* Boots into 32bit protected mode
+* Supports basic VGA text display
+
+## Todos
+### Extend VGA text display
+* Add rainbow text output
+* Add video buffer and redraw function
+### Setup GDT and IDT
