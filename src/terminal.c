@@ -50,14 +50,10 @@ static void scroll() {
 } 
 
 // Writes a single character out to the screen.
-void terminal_put(char c) {
-   // The background colour is black (0), the foreground is white (15).
-   uint8_t backColour = COLOR_BLACK;
-   uint8_t foreColour = COLOR_WHITE;
-
+void terminal_put_color(char c, terminal_color_t foreColor, terminal_color_t backColor) {
    // The attribute byte is made up of two nibbles - the lower being the
    // foreground colour, and the upper the background colour.
-   uint8_t  attributeByte = (backColour << 4) | (foreColour & 0x0F);
+   uint8_t  attributeByte = (backColor << 4) | (foreColor & 0x0F);
    // The attribute byte is the top 8 bits of the word we have to send to the
    // VGA board.
    uint16_t attribute = attributeByte << 8;
@@ -99,6 +95,11 @@ void terminal_put(char c) {
    scroll();
    // Move the hardware cursor.
    move_cursor();
+} 
+
+// Writes a single character out to the screen.
+void terminal_put(char c) {
+   terminal_put_color(c, COLOR_WHITE, COLOR_BLACK);
 } 
 
 // Clears the screen, by copying lots of spaces to the framebuffer.
@@ -180,4 +181,16 @@ void terminal_write_dec(uint32_t n) {
         c2[i--] = c[j++];
     }
     terminal_write(c2);
+}
+
+// Neat function to write rainbow strings
+void terminal_write_rainbow(const char *str) {
+	int i = 0;
+	while (str[i]) {
+		terminal_color_t foreColor = (i % COLOR_WHITE) + 1;
+		if (str[i] >= ' ')
+			terminal_put_color(str[i++], foreColor, COLOR_BLACK);
+		else
+			terminal_put_color(str[i++], COLOR_BLACK, COLOR_BLACK);
+	}
 }

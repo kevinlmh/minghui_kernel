@@ -31,6 +31,9 @@ enum terminal_colors {
 // Terminal color type.
 typedef uint8_t terminal_color_t; // currently unused
 
+// Write a single character out to the screen with specified color
+void terminal_put_color(char c, terminal_color_t foreColor, terminal_color_t backColor);
+
 // Write a single character out to the screen.
 void terminal_put(char c);
 
@@ -45,5 +48,8 @@ void terminal_write_hex(uint32_t n);
 
 // Output a decimal value to the monitor.
 void terminal_write_dec(uint32_t n);
+
+// Output a null-terminated ASCII string to the monitor with random color for each char
+void terminal_write_rainbow(const char *str);
 
 #endif // TERMINAL_H
