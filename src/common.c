@@ -7,21 +7,24 @@
 #include <stdint.h>
 #include "common.h"
 
+// Copy count bytes from src to dest.
 void *memcpy(void *dest, const void *src, size_t count) {
-	const int8_t *sp = (const int8_t *)src;
-	int8_t *dp = (int8_t *)dest;
+	const uint8_t *sp = (const uint8_t *)src;
+	uint8_t *dp = (uint8_t *)dest;
 	for (; count != 0; count--) 
 		*dp++ = *sp++;
 	return dest;
 }
 
-void *memset(void *dest, int8_t val, size_t count) {
-	int8_t *temp = (int8_t *)dest;
+// Write count copies of val into dest.
+void *memset(void *dest, uint8_t val, size_t count) {
+	uint8_t *temp = (uint8_t *)dest;
 	for (; count != 0; count--)
 		*temp++ = val;
 	return dest;
 }
 
+// Write count copies of val into dest.
 uint16_t *memsetw(uint16_t *dest, uint16_t val, size_t count) {
 	uint16_t *temp = (uint16_t *)dest;
 	for (; count != 0; count--)
@@ -29,11 +32,54 @@ uint16_t *memsetw(uint16_t *dest, uint16_t val, size_t count) {
 	return dest;
 }
 
-size_t strlen(const int8_t *str) {
+size_t strlen(const char *str) {
 	size_t retval;
 	for (retval = 0; *str != '\0'; str++)
 		retval++;
 	return retval;
+}
+
+// Compare two strings. Should return -1 if 
+// str1 < str2, 0 if they are equal or 1 otherwise.
+int strcmp(char *str1, char *str2) {
+      int i = 0;
+      int failed = 0;
+      while(str1[i] != '\0' && str2[i] != '\0') {
+          if(str1[i] != str2[i]) {
+              failed = 1;
+              break;
+          }
+          i++;
+      }
+      // why did the loop exit?
+      if( (str1[i] == '\0' && str2[i] != '\0') || (str1[i] != '\0' && str2[i] == '\0') )
+          failed = 1;
+  
+      return failed;
+}
+
+// Copy the NULL-terminated string src into dest, and
+// return dest.
+char *strcpy(char *dest, const char *src) {
+    do {
+      *dest++ = *src++;
+    }
+    while (*src != 0);
+    return dest;
+}
+
+// Concatenate the NULL-terminated string src onto
+// the end of dest, and return dest.
+char *strcat(char *dest, const char *src) {
+    while (*dest != 0) {
+        *dest = *dest++;
+    }
+
+    do {
+        *dest++ = *src++;
+    }
+    while (*src != 0);
+    return dest;
 }
 
 uint8_t inb(uint16_t _port) {

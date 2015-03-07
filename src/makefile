@@ -1,30 +1,28 @@
 CC=i686-elf-gcc
 AS=i686-elf-as
-CFLAGS=-std=gnu99 -ffreestanding -O2 -nostdlib -Wall -Wextra
+LD=i686-elf-ld
+CFLAGS=-m32 -ffreestanding -nostdlib -fno-builtin -fno-stack-protector -Wall -Wextra
 
-IDIR=../include	# include directory
-LDIR=../lib		# library directory
-ODIR=obj		# objects directory
-LIBS=-lgcc		# libraries
+# IDIR=../include	# include directory
+# LDIR=../lib		# library directory
+# ODIR=obj		# objects directory
+# LIBS=-lgcc		# libraries
 
 # C source files
-CSOURCES=kernel.c common.c terminal.c
+CSOURCES=kernel.c common.c terminal.c gdt.c idt.c isr.c
 # Assembly source files
-SSOURCES=boot.s
+SSOURCES=boot.s gdt_asm.s idt_asm.s interrupts.s
 
-# object files
+# Object files
 OBJECTS=$(CSOURCES:.c=.o) $(SSOURCES:.s=.o)
 # OBJECTS=$(patsubst %,$(ODIR)/%,$(_OBJECTS))
 
 all: kernel
 
 kernel: $(OBJECTS)
-	$(CC) -T linker.ld -o $@ $^ $(CFLAGS)
- 
-%.o: %.c
-	$(CC) -c -o $@ $^ $(CFLAGS)
+	$(LD) -T linker.ld -o $@ $^
 
-%.o: %.s
+.s.o:
 	$(AS) -o $@ $^
 
 clean:
@@ -32,4 +30,9 @@ clean:
 
 iso:
 	cp kernel ../isodir/boot/kernel
-	grub-mkrescue -o minghui_kernel.iso isodir
+	grub-mkrescue -o ../minghui_kernel.iso ../isodir
+
+qemu:
+	qemu-system-i386 ../minghui_kernel.iso
+
+test: kernel iso qemu

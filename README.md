@@ -14,10 +14,10 @@ Thanks to the following websites:
 ## Current State
 * Boots into 32bit protected mode
 * Supports basic VGA text display
+	- support rainbow text output
 
 ## Todos
 ### Extend VGA text display
-* Add rainbow text output
 * Add video buffer and redraw function
 * Add output functions with color parameter
 ### Setup GDT and IDT

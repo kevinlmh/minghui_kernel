@@ -5,12 +5,22 @@
 .set MAGIC,    0x1BADB002       # 'magic number' lets bootloader find the header
 .set CHECKSUM, -(MAGIC + FLAGS) # checksum of above, to prove we are multiboot
 
+.code32							# all instructions should be 32-bit.
+
 # Declare a header as in the Multiboot Standard.
 .section .multiboot
-.align 4
-.long MAGIC
-.long FLAGS
-.long CHECKSUM
+.global multiboot
+multiboot:
+	.align 4
+	.long MAGIC
+	.long FLAGS
+	.long CHECKSUM
+
+# .long multiboot               # Location of this descriptor
+#    .long code                    # Start of kernel '.text' (code) section.
+#    .long bss                     # End of kernel '.data' section.
+#    .long end                     # End of kernel.
+#    .long _start                   # Kernel entry point (initial EIP).
 
 # Create a temporary stack
 .section .bootstrap_stack, "aw", @nobits
@@ -20,13 +30,15 @@ stack_top:
 
 # The linker script specifies _start as the entry point to the kernel
 .section .text
-.global _start
+.global start
 
-.type _start, @function
-_start:
-	# our stack (as it grows downwards).
+.type start, @function
+start:
+	# Our stack (as it grows downwards).
 	movl $stack_top, %esp
-
+	
+	# Load multiboot information:
+    push %ebx
 	call kernel_main
 
 	cli
@@ -35,4 +47,4 @@ _start:
 	jmp .Lhang
 
 # This is useful when debugging or when you implement call tracing.
-.size _start, . - _start
+.size start, . - start
