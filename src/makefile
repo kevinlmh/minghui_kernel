@@ -30,7 +30,7 @@ clean:
 
 iso:
 	cp kernel ../isodir/boot/kernel
-	grub-mkrescue -o ../minghui_kernel.iso ../isodir
+	grub-mkrescue -d /usr/lib/grub/i386-pc -o ../minghui_kernel.iso ../isodir
 
 qemu:
 	qemu-system-i386 ../minghui_kernel.iso
