@@ -1,5 +1,5 @@
-#ifndef SYSTEM_H
-#define SYSTEM_H
+#ifndef COMMON_H
+#define COMMON_H
 
 #include <stdint.h>
 #include <stddef.h>
@@ -17,5 +17,11 @@ uint8_t inb(uint16_t _port);
 uint16_t inw(uint16_t _port);
 void outb(uint16_t _port, uint8_t _data);
 void outw(uint16_t _port, uint16_t _data);
+
+#define PANIC(msg) panic(msg, __FILE__, __LINE__);
+#define ASSERT(b) ((b) ? (void)0 : panic_assert(__FILE__, __LINE__, #b))
+
+extern void panic(const char *message, const char *file, uint32_t line);
+extern void panic_assert(const char *file, uint32_t line, const char *desc);
 
 #endif

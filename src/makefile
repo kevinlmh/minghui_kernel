@@ -9,7 +9,7 @@ CFLAGS=-m32 -ffreestanding -nostdlib -fno-builtin -fno-stack-protector -Wall -We
 # LIBS=-lgcc		# libraries
 
 # C source files
-CSOURCES=kernel.c common.c terminal.c gdt.c idt.c isr.c
+CSOURCES=kernel.c common.c terminal.c gdt.c idt.c isr.c timer.c kheap.c paging.c
 # Assembly source files
 SSOURCES=boot.s gdt_asm.s idt_asm.s interrupts.s
 
@@ -20,10 +20,13 @@ OBJECTS=$(CSOURCES:.c=.o) $(SSOURCES:.s=.o)
 all: kernel
 
 kernel: $(OBJECTS)
-	$(LD) -T linker.ld -o $@ $^
+	$(LD) -T link.ld -o $@ $^
 
 .s.o:
 	$(AS) -o $@ $^
+
+interrupts.o: interrupts.s
+	nasm -felf $<
 
 clean:
 	rm -rf *.o kernel

@@ -16,11 +16,11 @@ multiboot:
 	.long FLAGS
 	.long CHECKSUM
 
-# .long multiboot               # Location of this descriptor
-#    .long code                    # Start of kernel '.text' (code) section.
-#    .long bss                     # End of kernel '.data' section.
-#    .long end                     # End of kernel.
-#    .long _start                   # Kernel entry point (initial EIP).
+ 	.long multiboot               # Location of this descriptor
+  	.long code                    # Start of kernel '.text' (code) section.
+   	.long bss                     # End of kernel '.data' section.
+   	.long end                     # End of kernel.
+   	.long start                   # Kernel entry point (initial EIP).
 
 # Create a temporary stack
 .section .bootstrap_stack, "aw", @nobits
@@ -39,9 +39,11 @@ start:
 	
 	# Load multiboot information:
     push %ebx
+
+    cli
 	call kernel_main
 
-	cli
+
 	hlt
 .Lhang:
 	jmp .Lhang

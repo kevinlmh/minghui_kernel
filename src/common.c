@@ -72,7 +72,7 @@ char *strcpy(char *dest, const char *src) {
 // the end of dest, and return dest.
 char *strcat(char *dest, const char *src) {
     while (*dest != 0) {
-        *dest = *dest++;
+        dest++;
     }
 
     do {
@@ -100,4 +100,36 @@ uint16_t inw(uint16_t _port) {
 
 void outw(uint16_t _port, uint16_t _data) {
 	__asm__ __volatile__ ("outw %1, %0" : : "dN" (_port), "a" (_data));
+}
+
+extern void panic(const char *message, const char *file, uint32_t line)
+{
+    // We encountered a massive problem and have to stop.
+    asm volatile("cli"); // Disable interrupts.
+
+    terminal_write("PANIC(");
+    terminal_write(message);
+    terminal_write(") at ");
+    terminal_write(file);
+    terminal_write(":");
+    terminal_write_dec(line);
+    terminal_write("\n");
+    // Halt by going into an infinite loop.
+    for(;;);
+}
+
+extern void panic_assert(const char *file, uint32_t line, const char *desc)
+{
+    // An assertion failed, and we have to panic.
+    asm volatile("cli"); // Disable interrupts.
+
+    terminal_write("ASSERTION-FAILED(");
+    terminal_write(desc);
+    terminal_write(") at ");
+    terminal_write(file);
+    terminal_write(":");
+    terminal_write_dec(line);
+    terminal_write("\n");
+    // Halt by going into an infinite loop.
+    for(;;);
 }
