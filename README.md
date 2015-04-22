@@ -12,12 +12,19 @@ Thanks to the following websites:
 * [POSIX Standard](http://pubs.opengroup.org/onlinepubs/009695399/toc.htm)
 
 ## Current State
-* Boots into 32bit protected mode
+* Boots into 32-bit protected mode
 * Supports basic VGA text display
 	- support rainbow text output
+* Has Global Descriptor Table(GDT) and Interrupt Descriptor Table(IDT)
+* Supports Interrupt Requests
+	- Has function to register interrupt handlers
+* Has Programmable Interval Timer(PIT)
 
 ## Todos
 ### Extend VGA text display
 * Add video buffer and redraw function
 * Add output functions with color parameter
-### Setup GDT and IDT
+### Setup paging
+### Write a heap
+### File System
+### Multitasking
