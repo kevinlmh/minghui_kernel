@@ -9,7 +9,8 @@ CFLAGS=-m32 -ffreestanding -nostdlib -fno-builtin -fno-stack-protector -Wall -We
 # LIBS=-lgcc		# libraries
 
 # C source files
-CSOURCES=kernel.c common.c monitor.c descriptor_tables.c isr.c timer.c kheap.c paging.c ordered_array.c
+CSOURCES=kernel.c common.c monitor.c descriptor_tables.c isr.c timer.c \
+		 kheap.c paging.c ordered_array.c fs.c initrd.c
 # Assembly source files
 SSOURCES=boot.s gdt.s interrupt.s
 
@@ -31,11 +32,16 @@ interrupt.o: interrupt.s
 clean:
 	rm -rf *.o kernel
 
+initrd:
+	../make_initrd ../test.txt test.txt ../test2.txt test2.txt
+	mv initrd.img ../initrd.img
+
 iso:
 	cp kernel ../isodir/boot/kernel
+	cp ../initrd.img ../isodir/boot/initrd
 	grub-mkrescue -d /usr/lib/grub/i386-pc -o ../minghui_kernel.iso ../isodir
 
 qemu:
 	qemu-system-i386 ../minghui_kernel.iso
 
-test: kernel iso qemu
+test: kernel initrd iso qemu

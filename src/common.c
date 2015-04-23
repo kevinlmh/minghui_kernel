@@ -91,6 +91,13 @@ char *strcat(char *dest, const char *src)
     return dest;
 }
 
+int strlen(char *src) {
+    int i = 0;
+    while (*src++)
+        i++;
+    return i;
+}
+
 extern void panic(const char *message, const char *file, uint32_t line)
 {
     // We encountered a massive problem and have to stop.
