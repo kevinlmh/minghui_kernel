@@ -9,7 +9,7 @@ CFLAGS=-m32 -ffreestanding -nostdlib -fno-builtin -fno-stack-protector -Wall -We
 # LIBS=-lgcc		# libraries
 
 # C source files
-CSOURCES=kernel.c common.c monitor.c descriptor_tables.c isr.c timer.c kheap.c paging.c
+CSOURCES=kernel.c common.c monitor.c descriptor_tables.c isr.c timer.c kheap.c paging.c ordered_array.c
 # Assembly source files
 SSOURCES=boot.s gdt.s interrupt.s
 

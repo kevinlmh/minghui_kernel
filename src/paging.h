@@ -1,7 +1,5 @@
-/* 
- * File: paging.h
- * Defines the interface for and structures relating to paging.
- */
+// paging.h -- Defines the interface for and structures relating to paging.
+//             Written for JamesM's kernel development tutorials.
 
 #ifndef PAGING_H
 #define PAGING_H
@@ -9,7 +7,8 @@
 #include "common.h"
 #include "isr.h"
 
-typedef struct page {
+typedef struct page
+{
     uint32_t present    : 1;   // Page present in memory
     uint32_t rw         : 1;   // Read-only if clear, readwrite if set
     uint32_t user       : 1;   // Supervisor level only if clear
@@ -19,11 +18,13 @@ typedef struct page {
     uint32_t frame      : 20;  // Frame address (shifted right 12 bits)
 } page_t;
 
-typedef struct page_table {
+typedef struct page_table
+{
     page_t pages[1024];
 } page_table_t;
 
-typedef struct page_directory {
+typedef struct page_directory
+{
     /**
        Array of pointers to pagetables.
     **/
