@@ -12,21 +12,22 @@ Thanks to the following websites:
 * [8259 PIC](http://stanislavs.org/helppc/8259.html)
 * [Momory Management Reference](http://www.memorymanagement.org)
 * [Doug Lea's malloc](http://g.oswego.edu/dl/html/malloc.html)
+* [Filesystem Hierarchy Standard](http://www.pathname.com/fhs/pub/fhs-2.3.html)
 
 ## Current State
 * Boots into 32-bit protected mode
 * Supports basic VGA text display
 	- support rainbow text output
-* Has Global Descriptor Table(GDT) and Interrupt Descriptor Table(IDT)
+* Global Descriptor Table(GDT) and Interrupt Descriptor Table(IDT)
 * Supports Interrupt Requests
 	- Has function to register interrupt handlers
-* Has Programmable Interval Timer(PIT)
-* Paging is enabled
+* Programmable Interval Timer(PIT) enabled
+* Paging enabled
 * Dynamic memory allocation
+* Virtual Filesystem and Initial Ramdisk
 
 ## Todos
 * Extend VGA text display
 	- Add video buffer and redraw function
 	- Add output functions with color parameter
-* File System
 * Multitasking
