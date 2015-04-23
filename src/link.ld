@@ -27,7 +27,6 @@ SECTIONS
     {
         bss = .; _bss = .; __bss = .;
         *(.bss)
-        *(.bootstrap_stack)
         . = ALIGN(4096);
     }
 

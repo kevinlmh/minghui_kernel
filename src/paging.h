@@ -1,10 +1,11 @@
-// paging.h -- Defines the interface for and structures relating to paging.
-//             Written for JamesM's kernel development tutorials.
+/* 
+ * File: paging.h
+ * Defines the interface for and structures relating to paging.
+ */
 
 #ifndef PAGING_H
 #define PAGING_H
 
-#include <stdint.h>
 #include "common.h"
 #include "isr.h"
 
