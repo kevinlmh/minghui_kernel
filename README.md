@@ -11,6 +11,7 @@ Thanks to the following websites:
 * [POSIX Standard](http://pubs.opengroup.org/onlinepubs/009695399/toc.htm)
 * [8259 PIC](http://stanislavs.org/helppc/8259.html)
 * [Momory Management Reference](http://www.memorymanagement.org)
+* [Doug Lea's malloc](http://g.oswego.edu/dl/html/malloc.html)
 
 ## Current State
 * Boots into 32-bit protected mode
@@ -21,11 +22,11 @@ Thanks to the following websites:
 	- Has function to register interrupt handlers
 * Has Programmable Interval Timer(PIT)
 * Paging is enabled
+* Dynamic memory allocation
 
 ## Todos
 * Extend VGA text display
 	- Add video buffer and redraw function
 	- Add output functions with color parameter
-* Write a heap
 * File System
 * Multitasking
