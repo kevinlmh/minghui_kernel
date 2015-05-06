@@ -6,6 +6,7 @@
 
 #include "kheap.h"
 #include "paging.h"
+#include "monitor.h"
 
 // end is defined in the linker script.
 extern uint32_t end;
@@ -364,4 +365,26 @@ void free(void *p, heap_t *heap) {
     if (do_add == 1)
         insert_ordered_array((void*)header, &heap->index);
 
+}
+
+
+void debug_print() {
+    monitor_write("\nHeap debug print:\n");
+    uint32_t iterator = 0;
+    while (iterator < kheap->index.size) {
+        monitor_write_dec(iterator);
+        monitor_write(": ");
+        header_t *header = (header_t *)lookup_ordered_array(iterator, &kheap->index);
+        uint32_t location = (uint32_t)header;
+        uint32_t size = (uint32_t)header->size;
+        uint8_t is_hole = (uint8_t)header->is_hole;
+        monitor_write("header_location:");
+        monitor_write_hex(location);
+        monitor_write(" size:");
+        monitor_write_hex(size);
+        monitor_write(" is_hole:");
+        monitor_write_dec(is_hole);
+        monitor_write('\n');
+        iterator++;
+    }
 }

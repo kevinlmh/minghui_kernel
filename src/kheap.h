@@ -95,4 +95,6 @@ uint32_t kmalloc(uint32_t sz);
 **/
 void kfree(void *p);
 
+void debug_print();
+
 #endif // KHEAP_H
