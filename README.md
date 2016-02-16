@@ -1,4 +1,4 @@
-# Minghui Kernel
+# Minghui's Toy Kernel
 A toy kernel for learning operating systems
 
 Thanks to the following author and their tutorials:
